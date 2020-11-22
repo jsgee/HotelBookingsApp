@@ -9,7 +9,7 @@ namespace HotelBookingsApp
         public void AddBooking(string guest, int room, DateTime date)
         {
             if (!IsRoomAvailable(room, date))
-                throw new Exception("Room isn't available on that date.");
+                Console.WriteLine("Room isn't available on that date.");
 
             using (var db = new HotelBookingsDBContext())
             {
