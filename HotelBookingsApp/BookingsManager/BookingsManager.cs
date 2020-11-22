@@ -10,6 +10,7 @@ namespace HotelBookingsApp
         public void AddBooking(string guest, int room, DateTime date)
         {
             if (!IsRoomAvailable(room, date))
+                //I did this instead of throwing an exception so the other tests could run
                 Console.WriteLine("Room isn't available on that date.");
 
             using (var db = new HotelBookingsDBContext())
