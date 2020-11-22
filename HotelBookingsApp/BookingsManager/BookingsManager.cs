@@ -6,6 +6,7 @@ namespace HotelBookingsApp
 {
     public class BookingsManager : IBookingsManager
     {
+        private readonly object bookingsLock = new object();
         public void AddBooking(string guest, int room, DateTime date)
         {
             if (!IsRoomAvailable(room, date))
@@ -22,8 +23,11 @@ namespace HotelBookingsApp
                     GuestName = guest
                 }; ;
 
-                db.BookedRooms.Add(bookedRoom);
-                db.SaveChanges();
+                lock (bookingsLock)
+                {
+                    db.BookedRooms.Add(bookedRoom);
+                    db.SaveChanges();
+                }
             }
         }
 
